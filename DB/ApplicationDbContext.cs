@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SistemaFacturacionWeb.Models;
 
 namespace SistemaFacturacionWeb.DB
 {
@@ -9,5 +10,7 @@ namespace SistemaFacturacionWeb.DB
         {
 
         }
+
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
