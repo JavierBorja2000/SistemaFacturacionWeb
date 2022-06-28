@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model SistemaFacturacionWeb.Models.Usuario
+@{
+    ViewData["Title"] = "Eliminar Usuario";
+}
+<div class="py-3">
+    <div class="container mx-auto px-4 py-2">
+        <h1 class="text-center text-3xl uppercase bold tracking-wider">
+            @ViewData["Title"]
+        </h1>
+        <h1 class="text-center text-xl uppercase bold tracking-wider">¿Seguro que desea eliminar el siguiente elemento?
+        </h1>
+
+        <div class="flex flex-col mt-10 items-center">
+            <form class="bg-teal-50 w-full md:w-3/5 lg:w-2/5 py-5 px-5 mb-10 lg:mb-5 shadow-lg rounded-md"
+                asp-action="Eliminar">
+                <div class="mb-5 grid grid-cols-2 justify-between">
+                    <p class="font-bold px-3">@Html.DisplayNameFor(m => m.Id)</p>
+                    <p class="px-3">@Html.DisplayFor(m => m.Id)</p>
+                </div>
+                <div class="mb-5 grid grid-cols-2 justify-between">
+                    <p class="font-bold px-3">@Html.DisplayNameFor(m => m.Email)</p>
+                    <p class="px-3">@Html.DisplayFor(m => m.Email)</p>
+                </div>
+                <div class="flex flex-col md:flex-row text-center justify-center gap-5 content-center py-2">
+                    <input type="submit" value="Eliminar"
+                        class="w-1/3 self-center bg-red-600 px-4 py-2 uppercase text-white mb-5 rounded-md hover:bg-red-700 cursor-pointer">
+                    <p class="py-2 text-teal-600 hover:text-teal-700 font-bold">@Html.ActionLink("Regresar a la lista",
+                        "Index", "Usuario")</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
