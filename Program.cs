@@ -5,10 +5,10 @@ using SistemaFacturacionWeb.Filters;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddControllers(options =>
-//{
-//    options.Filters.Add<VerificarSesion>();
-//});
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<VerificarSesion>();
+});
 
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
