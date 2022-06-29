@@ -813,3 +813,15 @@ body {
         transform: translateY(-10px);
     }
 }
+
+.animacion-entrada {
+    transform: translateY(-10px);
+    transition: all;
+    animation: entrada 0.9s ease both;
+}
+
+@keyframes entrada{
+    100%{
+        transform: unset;
+    }
+}
