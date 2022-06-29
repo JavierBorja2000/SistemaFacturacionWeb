@@ -1,0 +1,54 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<SistemaFacturacionWeb.Models.Factura>
+@{
+    ViewData["Title"] = "Listado de Facturas";
+}
+<div class="py-3">
+    <div class="container mx-auto px-4 py-2">
+        <h1 class="text-center text-3xl uppercase bold tracking-wider">
+            @ViewData["Title"]
+        </h1>
+        <div class="flex w-full md:w-2/3 ml-auto mr-auto justify-center my-5 lg:my-0 lg:justify-end">
+            <a asp-action="Create" asp-controller="Factura"><button type="button"
+                    class="bg-teal-600 px-3 py-2 uppercase text-white mb-5 rounded-md hover:bg-teal-700 cursor-pointer">
+                    Agregar Factura </button> </a>
+        </div>
+        <div class="relative w-full md:w-3/4 ml-auto mr-auto overflow-x-auto shadow-md sm:rounded-lg">
+            @if (Model.Count() > 0)
+            {
+                <table class="w-full text-md text-left">
+                    <thead class="uppercase font-bold text-center tracking-wide bg-teal-500 text-white">
+                        <tr>
+                            <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Numero_factura)</td>
+                            <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Fecha)</td>
+                            <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Total_factura)</td>
+                            <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Anulada)</td>
+                            <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Cliente.Nit)</td>
+                            <td class="border border-teal-800 px-3 py-1">Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="border border-teal-800 px-3 py-1">@item.Numero_factura</td>
+                                <td class="border border-teal-800 px-3 py-1">@item.Fecha</td>
+                                <td class="border border-teal-800 px-3 py-1">@item.Total_factura</td>
+                                <td class="border border-teal-800 px-3 py-1">@item.Anulada</td>
+                                <td class="border border-teal-800 px-3 py-1">@item.Cliente.Nit</td>
+                                <td class="border border-teal-800 px-3 py-1 text-teal-600 hover:text-teal-700">
+                                    @Html.ActionLink("Editar","Editar", new { Numero_factura=item.Numero_factura}) | @Html.ActionLink("Eliminar",
+                            "Eliminar",
+                            new { Numero_factura=item.Numero_factura}) | @Html.ActionLink("Ver detalles",
+                            "VerDetalles",
+                            new { Numero_factura=item.Numero_factura})</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

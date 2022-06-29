@@ -7,7 +7,7 @@ namespace SistemaFacturacionWeb.Models
         public int Numero_factura { get; set; }
         public int Codigo_producto { get; set; }
         public int Cantidad { get; set; }
-        public double Total_factura { get; set; }
+        public float Precio { get; set; }
 
         [ForeignKey("Codigo_producto")]
         public virtual Producto? Producto { get; set; } = null!;
