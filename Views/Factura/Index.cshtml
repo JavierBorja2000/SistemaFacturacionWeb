@@ -39,8 +39,8 @@
                                 <td class="border border-teal-800 px-3 py-1">@item.Anulada</td>
                                 <td class="border border-teal-800 px-3 py-1">@item.Cliente.Nit</td>
                                 <td class="border border-teal-800 px-3 py-1 text-teal-600 hover:text-teal-700">
-                                    @Html.ActionLink("Editar","Editar", new { Numero_factura=item.Numero_factura}) | @Html.ActionLink("Eliminar",
-                            "Eliminar",
+                                    @Html.ActionLink("Editar","Editar", new { Numero_factura=item.Numero_factura}) | @Html.ActionLink("Anular",
+                            "Anular",
                             new { Numero_factura=item.Numero_factura}) | @Html.ActionLink("Ver detalles",
                             "VerDetalles",
                             new { Numero_factura=item.Numero_factura})</td>
