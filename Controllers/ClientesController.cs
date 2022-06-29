@@ -45,7 +45,10 @@ namespace SistemaFacturacionWeb.Controllers
 
             if (Codigo_cliente.HasValue == false)
             {
-                return NotFound();
+                TempData["ErrorTitle"] = "Error !";
+                TempData["ErrorDescription"] = "No se encontro el Cliente";
+                TempData["ErrorCode"] = "404";
+                return RedirectToAction("ErrorPage", "Home");
 
             }
             else
@@ -75,8 +78,10 @@ namespace SistemaFacturacionWeb.Controllers
 
             if (Codigo_cliente.HasValue == false)
             {
-                return NotFound();
-
+                TempData["ErrorTitle"] = "Error !";
+                TempData["ErrorDescription"] = "No se encontro el Cliente";
+                TempData["ErrorCode"] = "404";
+                return RedirectToAction("ErrorPage", "Home");
             }
             else
             {
@@ -95,9 +100,9 @@ namespace SistemaFacturacionWeb.Controllers
             }
             catch (Exception e)
             {
-
+                return RedirectToAction("ErrorPage", "Home");
             }
-            return View(cliente);
+            //return View(cliente);
         }
 
 
