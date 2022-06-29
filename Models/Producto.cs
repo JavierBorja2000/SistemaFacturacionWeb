@@ -9,25 +9,25 @@ namespace SistemaFacturacionWeb.Models
 
         [Required(ErrorMessage = "Este campo no puede estar vacío")]
         [Display(Name = "Nombre")]
-        public string Nombre{ get; set; }
+        public string? Nombre{ get; set; }
 
         [Display(Name = "Descripcion")]
-        public string Descripcion { get; set; }
+        public string? Descripcion { get; set; }
 
         [Required(ErrorMessage = "Este campo no puede estar vacío")]
         [Display(Name = "Precio")]
-        public float Precio { get; set; }
+        public float? Precio { get; set; }
 
         [Required(ErrorMessage = "Este campo no puede estar vacío")]
         [Display(Name = "Costo")]
-        public float Costo { get; set; }
+        public float? Costo { get; set; }
 
         [Required(ErrorMessage = "Este campo no puede estar vacío")]
         [Display(Name = "Existencia")]
-        public float Existencia { get; set; }
+        public float? Existencia { get; set; }
 
         [Required(ErrorMessage = "Este campo no puede estar vacío")]
         [Display(Name = "Estado")]
-        public char Estado { get; set; } // A - Activo I - Inactivo
+        public char? Estado { get; set; } // A - Activo I - Inactivo
     }
 }
