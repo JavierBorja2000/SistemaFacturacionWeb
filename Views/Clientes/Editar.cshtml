@@ -35,8 +35,12 @@
             <span asp-validation-for="Telefono" class="text-red-400"></span>
         </div>
          <div class="mb-5">
-            <label asp-for="Estado" class="control-label"></label>
-            <input asp-for="Estado"  class="border-2 w-full p-2 mt-2 rounded-md">
+             <label asp-for="Estado" class="control-label"></label>
+                 @Html.DropDownListFor(model=>model.Estado, new List<SelectListItem>()
+               {
+                   new SelectListItem() {Text = "Activo", Value="A" },
+                    new SelectListItem() {Text = "Inactivo", Value="I" }
+               })
             <span asp-validation-for="Estado" class="text-red-400"></span>
         </div>
        

@@ -782,3 +782,46 @@ body {
         transition: none
     }
 }
+
+
+/*PERSONALIZADO*/
+.btn-hero:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    height: 490%;
+    width: 140%;
+    background: #14B8A6;
+    transform: translate(-112%, -23%) rotate(45deg);
+    transition: all .5s ease-in-out;
+}
+
+.btn-hero:hover:after {
+    transform: translate(-9%, -23.8%) rotate(45deg);
+}
+
+.animation-hero{
+    animation: moveY 2s ease-in-out infinite alternate-reverse both; 
+}
+
+@keyframes moveY{
+    0%{
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+.animacion-entrada {
+    transform: translateY(-10px);
+    transition: all;
+    animation: entrada 0.9s ease both;
+}
+
+@keyframes entrada{
+    100%{
+        transform: unset;
+    }
+}
