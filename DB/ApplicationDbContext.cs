@@ -23,6 +23,6 @@ namespace SistemaFacturacionWeb.DB
             {
                 entity.HasKey(e => new { e.Numero_factura, e.Codigo_producto });
             });
-        }
+    }
     }
 }
