@@ -78,6 +78,16 @@ namespace SistemaFacturacionWeb.Controllers
             {
                 return RedirectToAction("HttpError404");
             }
+
+            var facturas = from d in _context.Detalle_Facturas where d.Codigo_producto == Codigo_producto select d;
+
+            if (facturas.Count() > 0)
+            {
+                TempData["ErrorTitle"] = "Error";
+                TempData["ErrorDescription"] = "No se puede eliminar el producto porque hay facturas asociadas a él.";
+                TempData["ErrorCode"] = 403;
+                return RedirectToAction("ErrorPage", "Home");
+            }
             else
             {
                 return View(producto);

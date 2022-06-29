@@ -76,7 +76,16 @@ namespace SistemaFacturacionWeb.Controllers
             if (Codigo_cliente.HasValue == false)
             {
                 return NotFound();
+            }
 
+            var facturas = from d in DbContext.Facturas where d.Codigo_cliente == Codigo_cliente select d;
+            
+            if(facturas.Count() > 0)
+            {
+                TempData["ErrorTitle"] = "Error";
+                TempData["ErrorDescription"] = "No se puede eliminar el cliente porque hay facturas asociadas a él.";
+                TempData["ErrorCode"] = 403;
+                return RedirectToAction("ErrorPage", "Home");
             }
             else
             {
