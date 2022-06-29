@@ -27,7 +27,9 @@ namespace SistemaFacturacionWeb.Controllers
 
             if (factura == null)
             {
-                return NotFound();
+                TempData["ErrorDescription"] = "El elemento no fue encontrado";
+                TempData["ErrorCode"] = 404;
+                return RedirectToAction("ErrorPage","Home");
             }
 
             factura.Cliente = _context.Clientes.Find(factura.Codigo_cliente);
