@@ -45,8 +45,10 @@ namespace SistemaFacturacionWeb.Controllers
 
             if (Codigo_producto.HasValue == false)
             {
-                return RedirectToAction("HttpError404");
-
+                TempData["ErrorTitle"] = "Error !";
+                TempData["ErrorDescription"] = "No se encontro el producto";
+                TempData["ErrorCode"] = "404";
+                return RedirectToAction("ErrorPage", "Home");
             }
             else
             {
@@ -76,7 +78,10 @@ namespace SistemaFacturacionWeb.Controllers
 
             if (Codigo_producto.HasValue == false)
             {
-                return RedirectToAction("HttpError404");
+                TempData["ErrorTitle"] = "Error !";
+                TempData["ErrorDescription"] = "No se encontro el producto";
+                TempData["ErrorCode"] = "404";
+                return RedirectToAction("ErrorPage", "Home");
             }
 
             var facturas = from d in _context.Detalle_Facturas where d.Codigo_producto == Codigo_producto select d;
@@ -105,10 +110,8 @@ namespace SistemaFacturacionWeb.Controllers
             }
             catch (Exception)
             {
-                return RedirectToAction("HttpError404");
+                return RedirectToAction("ErrorPage", "Home");
             }
-
-            return View();
         }
     }
 }

@@ -17,11 +17,11 @@
             class="bg-teal-600 px-3 py-2 uppercase text-white mb-5 rounded-md hover:bg-teal-700 cursor-pointer">
             Agregar Cliente </button> </a>
 </div>
-<div class="relative w-full md:w-2/3 ml-auto mr-auto overflow-x-auto shadow-md sm:rounded-lg">
+<div class="relative w-full xl:w-2/3 ml-auto mr-auto overflow-x-auto shadow-md sm:rounded-lg">
     @if (Model.Count() > 0)
     {
         <table class="w-full text-md text-left">
-            <thead class="uppercase font-bold text-center tracking-wide bg-teal-200">
+            <thead class="uppercase font-bold text-center tracking-wide bg-teal-500 text-white">
                 <tr>
                     <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Codigo_cliente)</td>
                     <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Nombres)</td>
