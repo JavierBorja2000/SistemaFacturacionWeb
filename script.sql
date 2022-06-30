@@ -27,12 +27,12 @@ DROP VIEW V_ReporteProducto_CampoVacio
 GO
 
 CREATE VIEW V_ReporteProducto_CampoVacio
-AS SELECT F.Fecha Fecha ,D.Codigo_producto Codigo, P.Nombre Nombre, D.Total_factura Total
+AS SELECT F.Fecha Fecha ,D.Codigo_producto Codigo, P.Nombre Nombre, (D.Precio * D.Cantidad) Total
 			FROM Facturas F Inner Join Detalle_Facturas D
 			On F.Numero_factura = D.Numero_factura Inner Join Productos P
 			On D.Codigo_producto = P.Codigo_producto
 			WHERE F.Anulada = 'N'
-			Group by P.Nombre, F.Fecha, D.Codigo_producto,D.Total_factura
+			Group by P.Nombre, F.Fecha, D.Codigo_producto,D.Precio, D.Cantidad
 			
 GO
 --con parametros condicion
@@ -46,7 +46,7 @@ DROP VIEW V_ReporteProducto_CampoLLeno
 GO
 
 CREATE VIEW V_ReporteProducto_CampoLLeno
-AS SELECT F.Fecha Fecha ,D.Codigo_producto Codigo, P.Nombre Nombre,  SUM(D.Total_factura) Total
+AS SELECT F.Fecha Fecha ,D.Codigo_producto Codigo, P.Nombre Nombre,  SUM(D.Precio * D.Cantidad) Total
 			FROM Facturas F Inner Join Detalle_Facturas D
 			On F.Numero_factura = D.Numero_factura Inner Join Productos P
 			On D.Codigo_producto = P.Codigo_producto
@@ -143,3 +143,46 @@ SELECT * FROM V_ReporteCliente v
 			Order By v.Fecha
 END
 GO
+
+--VISTA DE REPORTE FACTURAS
+
+--Con parametros condicion
+IF EXISTS(
+	SELECT 1
+	FROM sys.views
+	WHERE name = 'V_ReporteFacturas' and type = 'v'
+)
+
+DROP VIEW V_ReporteFacturas
+GO
+
+CREATE VIEW V_ReporteFacturas
+AS SELECT F.Fecha Fecha, COUNT(DISTINCT F.Numero_factura) Cantidad_Facturas, SUM(DF.Cantidad*DF.Precio) Total_Facturado, SUM(DF.Cantidad) Cantidad_productos
+	FROM Facturas F Inner Join Detalle_Facturas DF
+	On F.Numero_factura = DF.Numero_factura
+	WHERE F.Anulada = 'N' 
+	GROUP BY Fecha
+GO
+
+-- SP de reporte por fechas
+IF OBJECT_ID('sp_ReporteFacturas', 'P') IS NOT NULL
+DROP PROC sp_ReporteFacturas
+GO
+
+CREATE PROCEDURE [dbo].[sp_ReporteFacturas]
+		@Fecha1 date,
+		@Fecha2 date
+AS
+BEGIN
+
+IF(@Fecha1 = '') 
+		SELECT * FROM V_ReporteFacturas v	
+		Order By v.Fecha
+ELSE
+	SELECT * FROM V_ReporteFacturas v
+			WHERE v.Fecha BETWEEN @Fecha1 AND @Fecha2 
+			Order By v.Fecha
+END
+GO
+
+
