@@ -268,8 +268,8 @@ namespace SistemaFacturacionWeb.Controllers
                                   }).ToList();
 
             //Filtro los productos para que solo obtener lo que si cuenten con existencias disponibles
-            List<Producto> productosFiltrados = productos.Where(p => (p.Estado == 'A' && p.Existencia > 0) 
-                                                                || (productosAgregados.Find(x => x.Codigo_producto == p.Codigo_producto) != null)).ToList();
+            List<Producto> productosFiltrados = productos.Where(p => p.Estado == 'A' && (p.Existencia > 0
+                                                                || productosAgregados.Find(x => x.Codigo_producto == p.Codigo_producto) != null)).ToList();
 
             List<ProductoFactura> temp = new List<ProductoFactura>();
             foreach (var producto in productosFiltrados)
