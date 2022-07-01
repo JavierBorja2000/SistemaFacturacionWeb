@@ -35,6 +35,27 @@ BEGIN
 END
 GO
 
+-- SP DE NO ANULAR FACTURA
+IF OBJECT_ID('sp_DeshacerAnularFactura', 'P') IS NOT NULL
+DROP PROC sp_DeshacerAnularFactura
+GO
+
+CREATE PROCEDURE [dbo].[sp_DeshacerAnularFactura]
+    @numero_factura int
+AS
+BEGIN
+    UPDATE Facturas
+    SET Anulada = 'N'
+    WHERE Numero_factura = @numero_factura;
+
+    UPDATE P
+    SET Existencia = Existencia - D.Cantidad
+    FROM Productos P
+		INNER JOIN Detalle_Facturas D ON D.Codigo_producto = P.Codigo_producto
+    WHERE Numero_factura = @numero_factura;
+END
+GO
+
 -- SP DE CREAR FACTURA
 IF OBJECT_ID('sp_CrearFactura', 'P') IS NOT NULL
 DROP PROC sp_CrearFactura

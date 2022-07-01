@@ -16,7 +16,7 @@ namespace SistemaFacturacionWeb.Models.ViewModels
         public DateTime Fecha { get; set; }
 
         [Display(Name = "Total")]
-        public float Total_factura { get; set; }
+        public float? Total_factura { get; set; }
 
         [Display(Name = "Anulada")]
         public char Anulada { get; set; } // A - Anulada N - No Anulada
@@ -27,7 +27,7 @@ namespace SistemaFacturacionWeb.Models.ViewModels
         [ForeignKey("Codigo_cliente")]
         public virtual Cliente? Cliente { get; set; }
 
-        public IEnumerable<ProductoFactura> Productos { get; set; }
+        public List<ProductoFactura> Productos { get; set; }
     }
 
     public class ProductoFactura {
@@ -47,7 +47,7 @@ namespace SistemaFacturacionWeb.Models.ViewModels
         [Display(Name = "Precio")]
         public float? Precio { get; set; }
 
-        [Remote("CantidadValida", "Factura", AdditionalFields = "Numero_factura, codigo_producto", ErrorMessage = "No existen suficiente en existencia para cubrir lo solicitado" )]
+        //[Remote("CantidadValida", "Factura", AdditionalFields = "Numero_factura, codigo_producto", ErrorMessage = "No existen suficiente en existencia para cubrir lo solicitado" )]
         public int Cantidad { get; set; }
 
         public int? Existencias { get; set; }
