@@ -1,0 +1,75 @@
+﻿
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model SistemaFacturacionWeb.Models.Reporte_producto;
+@{
+    ViewData["Title"] = "Reporte por Producto";
+}
+<div class="py-3">
+    <div class="container mx-auto px-4 py-2">
+        <h1 class="text-center text-3xl uppercase bold tracking-wider">
+            @ViewData["Title"]
+        </h1>
+<div class="flex flex-col mt-10 items-center">
+    <form class="bg-teal-50 w-full  py-5 px-5 mb-10 lg:mb-5 shadow-lg rounded-md" method="post" asp-action="Rep_Producto">
+        <span  class="text-red-400">@TempData["Error"]</span>
+        <div class="mb-5">
+            <label asp-for="ReporteViewModel.Fecha1" class="control-label"></label>
+            <input asp-for="ReporteViewModel.Fecha1"  class="border-2 w-full p-2 mt-2 rounded-md">
+           
+        </div>
+         <div class="mb-5">
+            <label asp-for="ReporteViewModel.Fecha2" class="control-label"></label>
+            <input asp-for="ReporteViewModel.Fecha2"  class="border-2 w-full p-2 mt-2 rounded-md">
+            <span asp-validation-for="ReporteViewModel.Fecha2" class="text-red-400"></span>
+        </div>
+         <div class="mb-5">
+            <label asp-for="ReporteViewModel.Nombre" class="control-label"></label>
+            <input asp-for="ReporteViewModel.Nombre"  class="border-2 w-full p-2 mt-2 rounded-md">
+            
+        </div>
+         <div class="flex justify-center">
+            <input type="submit" value="Buscar"
+                class="bg-teal-600 px-5 py-2 uppercase text-white mb-5 rounded-md hover:bg-teal-700 cursor-pointer">
+        </div>
+
+        @if(Model.Resultados.Count()>0){
+        <table class="w-full text-md text-left">
+            <thead class="uppercase font-bold text-center tracking-wide bg-teal-500 text-white">
+                <tr>
+                    <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Fecha)</td>
+                    <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Codigo_producto)</td>
+                    <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Nombre_producto)</td>
+                    <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Total)</td>
+               
+                </tr>
+            </thead>
+             <tbody> 
+                @foreach (var item in Model.Resultados )
+                {
+                    <tr>
+                        <td class="border border-teal-800 px-3 py-1">@item.Fecha</td>
+                        <td class="border border-teal-800 px-3 py-1">@item.Codigo_producto</td>
+                        <td class="border border-teal-800 px-3 py-1">@item.Nombre_producto</td>
+                        <td class="border border-teal-800 px-3 py-1">@item.Total</td>
+                      
+                        
+                    </tr>
+                } 
+            </tbody>
+        </table>
+   }
+
+        
+         
+
+       
+        
+    </form>
+</div>
+</div>
+    </div>
+</div>
