@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SistemaFacturacionWeb.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Seleccione al cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="py-3">
+    <div class="container mx-auto px-4 py-2">
+        <h1 class="text-center text-3xl uppercase bold tracking-wider">
+            @ViewData["Title"]
+        </h1>
+        <div class="flex flex-col mt-10 items-center overflow-x-scroll sm:overflow-auto">
+            <table class="w-full xl:w-2/3 text-md text-left ">
+                <thead class="uppercase font-bold text-left tracking-wide border-b-2 border-b-gray-900 text-gray-700">
+                    <tr>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Codigo_cliente)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Nombres)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Apellidos)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Nit)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Telefono)</td>
+                        <td class="px-3 py-2">Seleccione</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        @if(item.Estado == 'A')
+                        {
+                            <tr class="text-gray-900 border-b-2 border-b-gray-900 hover:bg-gray-200">
+                                <td class="px-3 py-2">@item.Codigo_cliente</td>
+                                <td class="px-3 py-2">@item.Nombres</td>
+                                <td class="px-3 py-2">@item.Apellidos</td>
+                                <td class="px-3 pyS-2">@item.Nit</td>
+                                <td class="px-3 py-2">@item.Telefono</td>
+                                <td class="px-3 py-2">
+                                    <a asp-action="AgregarProductos" asp-controller="Factura" asp-route-codigo="@item.Codigo_cliente" class="inline-block pr-2 pl-2 py-1 rounded border-none focus:outline-none font-semibold text-xs bg-teal-500 text-gray-200 shadow-sm hover:shadow-md hover:bg-gray-900 transition-all duration-500">Emitir Factura</a>
+                               </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+
