@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaFacturacionWeb.Models.ViewModels
@@ -30,6 +31,8 @@ namespace SistemaFacturacionWeb.Models.ViewModels
     }
 
     public class ProductoFactura {
+        public int Numero_factura { get; set; }
+
         [Key]
         public int Codigo_producto { get; set; }
 
@@ -44,6 +47,7 @@ namespace SistemaFacturacionWeb.Models.ViewModels
         [Display(Name = "Precio")]
         public float Precio { get; set; }
 
+        [Remote("CantidadValida", "Factura", AdditionalFields = "Numero_factura, codigo_producto", ErrorMessage = "No existen suficiente en existencia para cubrir lo solicitado" )]
         public int Cantidad { get; set; }
     }
 
