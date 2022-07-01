@@ -52,7 +52,9 @@ namespace SistemaFacturacionWeb.Controllers
 
             if (usuario == null)
             {
-                return RedirectToAction("HttpError404");
+                TempData["ErrorDescription"] = "El elemento no fue encontrado";
+                TempData["ErrorCode"] = 404;
+                return RedirectToAction("ErrorPage", "Home");
             }
 
             EditarUsuarioViewModel modelo = new EditarUsuarioViewModel();
@@ -84,7 +86,9 @@ namespace SistemaFacturacionWeb.Controllers
 
             if (usuario == null)
             {
-                return RedirectToAction("HttpError404");
+                TempData["ErrorDescription"] = "El elemento no fue encontrado";
+                TempData["ErrorCode"] = 404;
+                return RedirectToAction("ErrorPage", "Home");
             }
 
             return View(usuario);
@@ -111,7 +115,9 @@ namespace SistemaFacturacionWeb.Controllers
             }
             catch (Exception)
             {
-                return RedirectToAction("HttpError404");
+                TempData["ErrorDescription"] = "El elemento no fue encontrado";
+                TempData["ErrorCode"] = 404;
+                return RedirectToAction("ErrorPage", "Home");
             }
 
         }

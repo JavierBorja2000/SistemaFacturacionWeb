@@ -19,6 +19,13 @@ namespace SistemaFacturacionWeb.Filters
                     context.HttpContext.Response.Redirect("/Access/Login");
                 }
             }
+            else
+            {
+                if (context.Controller is AccessController == true)
+                {
+                    context.HttpContext.Response.Redirect("/Home/Index");
+                }
+            }
 
             base.OnActionExecuting(context);
         }

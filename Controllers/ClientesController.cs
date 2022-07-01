@@ -45,7 +45,10 @@ namespace SistemaFacturacionWeb.Controllers
 
             if (Codigo_cliente.HasValue == false)
             {
-                return NotFound();
+                TempData["ErrorTitle"] = "Error !";
+                TempData["ErrorDescription"] = "No se encontro el Cliente";
+                TempData["ErrorCode"] = "404";
+                return RedirectToAction("ErrorPage", "Home");
 
             }
             else
@@ -75,8 +78,20 @@ namespace SistemaFacturacionWeb.Controllers
 
             if (Codigo_cliente.HasValue == false)
             {
-                return NotFound();
+                TempData["ErrorTitle"] = "Error !";
+                TempData["ErrorDescription"] = "No se encontro el Cliente";
+                TempData["ErrorCode"] = "404";
+            }
 
+            var facturas = from d in DbContext.Facturas where d.Codigo_cliente == Codigo_cliente select d;
+            
+            if(facturas.Count() > 0)
+            {
+                TempData["ErrorTitle"] = "Error";
+                TempData["ErrorDescription"] = "No se puede eliminar el cliente porque hay facturas asociadas a él.";
+                TempData["ErrorCode"] = 403;
+
+                return RedirectToAction("ErrorPage", "Home");
             }
             else
             {
@@ -95,9 +110,9 @@ namespace SistemaFacturacionWeb.Controllers
             }
             catch (Exception e)
             {
-
+                return RedirectToAction("ErrorPage", "Home");
             }
-            return View(cliente);
+            //return View(cliente);
         }
 
 
