@@ -28,6 +28,8 @@ namespace SistemaFacturacionWeb.Models.ViewModels
         public virtual Cliente? Cliente { get; set; }
 
         public List<ProductoFactura> Productos { get; set; }
+
+        public List<Cliente>? listClientes { get; set; }
     }
 
     public class ProductoFactura {

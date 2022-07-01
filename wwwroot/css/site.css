@@ -49,6 +49,7 @@ body {
 
 html {
     font-size: 14px;
+    scroll-behavior: smooth;
 }
 
 @media (min-width: 768px) {
@@ -824,4 +825,12 @@ body {
     100%{
         transform: unset;
     }
+}
+
+.btn-aumentar{
+    right: 8px;
+}
+
+.ocultar{
+    display: none;
 }
