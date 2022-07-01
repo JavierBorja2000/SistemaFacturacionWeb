@@ -1,10 +1,9 @@
 ﻿@model SistemaFacturacionWeb.Models.ViewModels.VerDetallesViewModel
 
 @{
-    ViewData["Title"] = "Agregar Productos";
+    ViewData["Title"] = "Editar Factura";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
- 
 
 <div class="py-3">
     <form class="container mx-auto px-4 py-2" method="post"
@@ -15,7 +14,7 @@
         </h1>
         <div class="flex flex-col lg:flex-row">
              <div class="flex mt-10 items-center overflow-x-scroll sm:overflow-auto lg:w-2/3">
-                <table class="w-full text-base text-left ">
+                <table id="tableProductos" class="w-full text-base text-left ">
                     <thead class="uppercase font-bold text-left tracking-wide border-b-2 border-b-gray-600 text-sm text-gray-600">
                         <tr>
                             <td class="px-3 py-2">PRODUCTO</td>
@@ -34,7 +33,7 @@
                                     <p class="text-gray-900 font-semibold">@Model.Productos[i].Nombre</p>
                                     <p class="text-xs text-gray-600">@Model.Productos[i].Descripcion</p>
                                 </td>
-                                <td class="px-3 py-2 text-gray-900 font-semibold">@Model.Productos[i].Precio</td>
+                                <td id="precio" class="px-3 py-2 text-gray-900 font-semibold">@Model.Productos[i].Precio</td>
                                 <td class="px-3 pt-4 text-gray-900 font-semibold flex">
                                     <button type="button" class="btn-disminuir bg-gray-200 focus:outline-none px-2 rounded-l-full">-</button>
                                     <input min="0" class="bg-gray-200 focus:outline-none pl-2 w-12 text-center valid" id="cantidad" asp-for="Productos[i].Cantidad" readonly/>
@@ -57,8 +56,23 @@
                         <p class="w-full py-4 px-5 text-lg text-gray-900 tracking-wide font-semibold border-2 border-b-0 border-b-gray-300">Resumen</p>
                     </div>
                     <div class="bg-gray-200 py-4 px-5 border-2 border-b-gray-300">
-                        <p class="w-full  text-sm text-gray-600 pb-2">Emitida por: @Model.Cliente.Nombres @Model.Cliente.Apellidos </p>
-                        <p class="w-full  text-sm text-gray-600">NIT: @Model.Cliente.Nit </p>
+                        <p class="w-full  text-sm text-gray-600 pb-2 flex justify-between">
+                            <span>Emitida por: @Model.Cliente.Nombres @Model.Cliente.Apellidos</span>
+                            <a href="#selectNuevoCliente" class="cambiarCliente text-teal-500 hover:text-teal-800 underline decoration-solid font-semibold">cambiar</a>
+                        </p>
+                        <p class="w-full  text-sm text-gray-600 pb-2">NIT: @Model.Cliente.Nit </p>
+                        <p class="w-full  text-sm text-gray-600 flex justify-between">
+                            
+                            @if(@Model.Anulada == 'A')
+                            {
+                                <span>Estado: Anulada </span>
+                            }
+                            else
+                            {
+                                <span>Estado: Vigente </span>
+                            }
+                            <a asp-action="cambiarEstadoFactura" asp-controller="Factura" asp-route-estado="@Model.Anulada" class="text-teal-500 hover:text-teal-800 underline decoration-solid font-semibold">cambiar</a>
+                        </p>
                     </div>
                     <div class="bg-gray-300 flex justify-between py-4 px-5 font-semibold tracking-wide " >
                         <p class="w-full text-lg text-gray-900 ">TOTAL</p>
@@ -75,9 +89,47 @@
     </form>
 </div>
 
-<script src="~/js/crearFactura.js" asp-append-version="true"></script>
+<div id="selectNuevoCliente" class="my-40 py-3 ocultar">
+    <div class="container mx-auto px-4 py-2">
+        <h1 class="text-center text-3xl uppercase bold tracking-wider">
+            Seleccione al nuevo Cliente
+        </h1>
+        <div class="flex lg:flex-col mt-10 items-center overflow-x-scroll sm:overflow-auto">
+            <table class="w-full xl:w-2/3 text-md text-left ">
+                <thead class="uppercase font-bold text-left tracking-wide border-b-2 border-b-gray-900 text-gray-700">
+                    <tr>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Codigo_cliente)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Cliente.Nombres)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Cliente.Apellidos)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Cliente.Nit)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Cliente.Telefono)</td>
+                        <td class="px-3 py-2">Seleccione</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listClientes)
+                    {
+                        @if(item.Estado == 'A')
+                        {
+                            <tr class="text-gray-900 border-b-2 border-b-gray-900 hover:bg-gray-200">
+                                <td class="px-3 py-2">@item.Codigo_cliente</td>
+                                <td class="px-3 py-2">@item.Nombres</td>
+                                <td class="px-3 py-2">@item.Apellidos</td>
+                                <td class="px-3 pyS-2">@item.Nit</td>
+                                <td class="px-3 py-2">@item.Telefono</td>
+                                <td class="px-3 py-2">
+                                    <button asp-action="" asp-controller="" asp-route-codigo="@item.Codigo_cliente" class="clienteSeleccionado inline-block pr-2 pl-2 py-1 rounded border-none focus:outline-none font-semibold text-xs bg-teal-500 text-gray-200 shadow-sm hover:shadow-md hover:bg-gray-900 transition-all duration-500">Cambiar Persona</button>
+                               </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
 
-@*@section Scripts
-{
-  <script src="@Url.Content("~/wwwroot/js/crearFactura.js")"></script>
-}*@
+
+<script src="~/js/editarFactura.js" asp-append-version="true"></script>
+
