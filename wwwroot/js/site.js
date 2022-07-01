@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target.matches(".btn-disminuir")) {
             const $cantidad = e.target.nextElementSibling
 
-            if ($cantidad.textContent === "0") return
+            if ($cantidad.value === 0) return
 
-            let cantidadActual = parseInt($cantidad.textContent) - 1
-            $cantidad.textContent = cantidadActual
+            let cantidadActual = parseInt($cantidad.value) - 1
+            $cantidad.value = cantidadActual
 
             //Actualizaciones
             let precio = parseFloat(e.target.parentElement.previousElementSibling.textContent)
@@ -29,13 +29,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const cantidad = e.target.previousElementSibling
 
-            let cantidadActual = parseInt(cantidad.textContent) + 1
+            let cantidadActual = parseInt(cantidad.value) + 1
 
             //Verificar existencias
             let existencias = e.target.closest("tr").querySelector("#existencias").textContent
             if (cantidadActual > parseInt(existencias)) return 
 
-            cantidad.textContent = cantidadActual
+            cantidad.value = cantidadActual
 
             //Actualizaciones
             let precio = parseFloat(e.target.parentElement.previousElementSibling.textContent)
