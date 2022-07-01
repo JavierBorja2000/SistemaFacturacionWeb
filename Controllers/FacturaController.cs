@@ -20,40 +20,6 @@ namespace SistemaFacturacionWeb.Controllers
 
         public IActionResult Index()
         {
-            //factura.Total_factura = 164;
-            //factura.Numero_factura = id;
-            //factura.Codigo_cliente = 2;
-
-            //_context.Update(factura);
-            //_context.SaveChanges();
-
-            //producto1.Cantidad = 12;
-
-            //var producto4 = new ProductoFactura
-            //{
-            //    Codigo_producto = 4,
-            //    Cantidad = 0,
-            //    Precio = 20
-            //};
-
-            //listado = new List<ProductoFactura>();
-            //listado.Add(producto1);
-            //listado.Add(producto2);
-            //listado.Add(producto3);
-            //listado.Add(producto4);
-
-            //var listadoAntiguo = _context.Detalle_Facturas.ToList();
-
-            //foreach (var producto in listado)
-            //{
-
-            //    if(listadoAntiguo.Count(x => x.Codigo_producto == producto.Codigo_producto && x.Numero_factura == id) > 0
-            //        || producto.Cantidad > 0){
-            //        _context.Database.ExecuteSqlRaw($"sp_EditarFactura {id}, {producto.Codigo_producto}, {producto.Cantidad}, {producto.Precio}");
-            //    }
-
-            //}
-
             IEnumerable<Factura> listaFacturas = _context.Facturas.Include(f => f.Cliente);
             return View(listaFacturas);
         }
@@ -262,41 +228,8 @@ namespace SistemaFacturacionWeb.Controllers
 
             return Redirect("Index");
         }
-
-        [AllowAnonymous]
-        [HttpPost, HttpGet]
-        public JsonResult CantidadValida(int cantidad, int numero_factura, int codigo_producto)
-        {
-            var producto = _context.Productos.Find(codigo_producto);
-            if (numero_factura == 0)
-            {
-                if (cantidad > producto.Existencia)
-                {
-                    return Json(false);
-                }
-                return Json(true);
-            }
-            else
-            {
-                var cantidadAntigua = _context.Detalle_Facturas.Find(numero_factura, codigo_producto).Cantidad;
-
-                if (cantidadAntigua >= cantidad)
-                {
-                    return Json(true);
-                }
-                else
-                {
-                    int diferencia = cantidad - cantidadAntigua;
-
-                    if (diferencia > producto.Existencia)
-                    {
-                        return Json(false);
-                    }
-                    return Json(true);
-                }
-            }
-        }
-
+        
+        
         [HttpGet]
         public IActionResult Editar(int Numero_factura)
         {
@@ -369,6 +302,54 @@ namespace SistemaFacturacionWeb.Controllers
             modelo.listClientes = _context.Clientes.ToList();
 
             return View(modelo);
+        }
+  
+        
+        [HttpPost]
+        public IActionResult Editar(VerDetallesViewModel modelo)
+        {
+            var factura = _context.Facturas.Find(modelo.Numero_factura);
+
+            if(factura.Anulada != modelo.Anulada)
+            {
+                if(factura.Anulada == 'A')
+                {
+                    _context.Database.ExecuteSqlRaw($"sp_AnularFactura {modelo.Numero_factura}");
+                }
+                else
+                {
+                    _context.Database.ExecuteSqlRaw($"sp_DeshacerAnularFactura {modelo.Numero_factura}");
+                }
+            }
+
+            modelo.Total_factura = 0;
+            foreach (var producto in modelo.Productos)
+            {
+                modelo.Total_factura += (producto.Cantidad * producto.Precio);
+            }
+
+            factura.Total_factura = (float) modelo.Total_factura;
+            factura.Anulada = modelo.Anulada;
+            factura.Fecha = modelo.Fecha;
+            factura.Codigo_cliente = (int) modelo.Codigo_cliente;
+
+            _context.Update(factura);
+            _context.SaveChanges();
+
+            var listadoAntiguo = _context.Detalle_Facturas.ToList();
+
+            foreach (var producto in modelo.Productos)
+            {
+
+                if (listadoAntiguo.Count(x => x.Codigo_producto == producto.Codigo_producto && x.Numero_factura == modelo.Numero_factura) > 0
+                    || producto.Cantidad > 0)
+                {
+                    _context.Database.ExecuteSqlRaw($"sp_EditarFactura {modelo.Numero_factura}, {producto.Codigo_producto}, {producto.Cantidad}, {producto.Precio}");
+                }
+
+            }
+
+            return Redirect("Index");
         }
 
     }
