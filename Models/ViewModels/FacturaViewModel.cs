@@ -21,7 +21,7 @@ namespace SistemaFacturacionWeb.Models.ViewModels
         public char Anulada { get; set; } // A - Anulada N - No Anulada
 
         [Display(Name = "Cliente")]
-        public int Codigo_cliente { get; set; }
+        public int? Codigo_cliente { get; set; }
 
         [ForeignKey("Codigo_cliente")]
         public virtual Cliente? Cliente { get; set; }
@@ -42,9 +42,11 @@ namespace SistemaFacturacionWeb.Models.ViewModels
 
         [Required(ErrorMessage = "Este campo no puede estar vacío")]
         [Display(Name = "Precio")]
-        public float Precio { get; set; }
+        public float? Precio { get; set; }
 
         public int Cantidad { get; set; }
+
+        public int? Existencias { get; set; }
     }
 
 }

@@ -128,5 +128,59 @@ namespace SistemaFacturacionWeb.Controllers
 
             return Redirect("Index");
         }
+
+        [HttpGet]
+        public IActionResult SelectCliente()
+        {
+            IEnumerable<Cliente> listaClientes = _context.Clientes;
+            return View(listaClientes);
+        }
+
+        
+        [HttpGet]
+        public IActionResult AgregarProductos(int? codigo)
+        {
+            if(codigo == null)
+            {
+                TempData["ErrorTitle"] = "Error !";
+                TempData["ErrorDescription"] = "No se encontro el cliente";
+                TempData["ErrorCode"] = "404";
+                return RedirectToAction("ErrorPage", "Home");
+            }
+
+            var cliente = _context.Clientes.Find(codigo);
+
+
+            var modelo = new VerDetallesViewModel
+            {
+                Codigo_cliente = codigo,
+                Cliente = cliente
+            };
+
+
+            var productos = _context.Productos.ToList();
+
+            //Filtro los productos para que solo obtener lo que si cuenten con existencias disponibles
+            List<Producto> productosFiltrados = productos.Where(p => p.Existencia > 0).ToList();
+
+            List<ProductoFactura> emp = new List<ProductoFactura>();
+            foreach (var producto in productosFiltrados)
+            {
+                emp.Add(new ProductoFactura
+                {
+                    Codigo_producto = producto.Codigo_producto,
+                    Nombre = producto.Nombre,
+                    Descripcion = producto.Descripcion,
+                    Precio = producto.Precio,
+                    Cantidad = 0,
+                    Existencias = (int?)producto.Existencia
+                }); 
+
+            }
+
+            modelo.Productos = emp;
+            
+            return View(modelo);
+        }
     }
 }
