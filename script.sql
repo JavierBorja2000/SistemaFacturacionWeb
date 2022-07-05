@@ -33,7 +33,7 @@ AS SELECT F.Fecha Fecha ,D.Codigo_producto Codigo, P.Nombre Nombre, SUM(D.Precio
 			On F.Numero_factura = D.Numero_factura Inner Join Productos P
 			On D.Codigo_producto = P.Codigo_producto
 			WHERE F.Anulada = 'N'
-			Group by P.Nombre, F.Fecha, D.Codigo_producto,D.Precio, D.Cantidad
+			Group by P.Nombre, F.Fecha, D.Codigo_producto
 			
 GO
 --con parametros condicion
