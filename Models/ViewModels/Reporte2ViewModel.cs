@@ -15,7 +15,7 @@ namespace SistemaFacturacionWeb.Models.ViewModels
 
         public DateTime? Fecha2 { get; set; }
 
-        [Display(Name = "Nombre del cliente")]
+        [Display(Name = "Nombre completo del cliente")]
         public string? Nombre_Completo { get; set; }
     }
 }

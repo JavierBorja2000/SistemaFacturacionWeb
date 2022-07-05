@@ -51,7 +51,7 @@
                 @foreach (var item in Model.Resultados )
                 {
                     <tr>
-                        <td class="border border-teal-800 px-3 py-1">@item.Fecha</td>
+                        <td class="border border-teal-800 px-3 py-1">@item.Fecha.ToShortDateString()</td>
                         <td class="border border-teal-800 px-3 py-1">@item.Codigo_producto</td>
                         <td class="border border-teal-800 px-3 py-1">@item.Nombre_producto</td>
                         <td class="border border-teal-800 px-3 py-1">@item.Total</td>

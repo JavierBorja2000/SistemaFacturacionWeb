@@ -4,7 +4,7 @@ namespace SistemaFacturacionWeb.Models.ViewModels
     public class ReporteClienteViewModel
     {
         [DataType(DataType.Date)]
-        public DateTime? Fecha { get; set; }
+        public DateTime Fecha { get; set; }
 
         public string? Nombre { get; set; }
 

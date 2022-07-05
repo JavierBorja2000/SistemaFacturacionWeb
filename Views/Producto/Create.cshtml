@@ -21,17 +21,17 @@
                     </div>
                     <div class="mb-5">
                         <label asp-for="Precio" class="control-label"></label>
-                        <input asp-for="Precio"  class="border-2 w-full p-2 mt-2 rounded-md">
+                        <input type="number" min=0 asp-for="Precio"  class="border-2 w-full p-2 mt-2 rounded-md">
                         <span asp-validation-for="Precio" class="text-red-400"></span>
                     </div>
                     <div class="mb-5">
                         <label asp-for="Costo" class="control-label"></label>
-                        <input asp-for="Costo"  class="border-2 w-full p-2 mt-2 rounded-md">
+                        <input type="number" min=0 asp-for="Costo"  class="border-2 w-full p-2 mt-2 rounded-md">
                         <span asp-validation-for="Costo" class="text-red-400"></span>
                     </div>
                     <div class="mb-5">
                         <label asp-for="Existencia" class="control-label"></label>
-                        <input asp-for="Existencia"  class="border-2 w-full p-2 mt-2 rounded-md">
+                        <input type="number" min=0 asp-for="Existencia"  class="border-2 w-full p-2 mt-2 rounded-md">
                         <span asp-validation-for="Existencia" class="text-red-400"></span>
                     </div>
                     <div class="mb-5">

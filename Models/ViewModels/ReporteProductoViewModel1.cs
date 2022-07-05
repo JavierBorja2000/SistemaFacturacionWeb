@@ -7,7 +7,7 @@ namespace SistemaFacturacionWeb.Models.ViewModels
 
 
         [DataType(DataType.Date)]
-        public DateTime? Fecha { get; set; }
+        public DateTime Fecha { get; set; }
 
         public int Codigo_producto { get; set; }
 

@@ -832,10 +832,10 @@ body {
     right: 8px;
 }
 
-.ocultar{
+.ocultar {
     display: none;
-
-.btn-reporte:after {
+}
+.btn-reporte:after{
     position: absolute;
     content: "";
     left: 0;
