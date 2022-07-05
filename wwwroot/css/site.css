@@ -827,10 +827,55 @@ body {
     }
 }
 
+
 .btn-aumentar{
     right: 8px;
 }
 
 .ocultar{
     display: none;
+
+.btn-reporte:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0px;
+    border-radius: 0 50% 50% 0;
+    background: #14B8A6;
+    transition: all .9s ease;
+}
+
+
+/*Boton de Reportes*/
+.btn-reporte:hover:after {
+    border-radius: 0;
+    width: 150%;
+}
+.svg-flecha{
+    display:none;
+}
+
+@media (min-width: 800px) {
+    .svg-flecha{
+        display:block;
+    }
+
+    .btn-reporte:after {
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 47px;
+        border-radius: 0 50% 50% 0;
+        background: #14B8A6;
+        transition: all .9s ease;
+    }
+
+    .btn-reporte:hover:after {
+        border-radius: 0;
+        width: 150%;
+    }
 }
