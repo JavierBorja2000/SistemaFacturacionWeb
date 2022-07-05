@@ -28,7 +28,7 @@ DROP VIEW V_ReporteProducto_CampoVacio
 GO
 
 CREATE VIEW V_ReporteProducto_CampoVacio
-AS SELECT F.Fecha Fecha ,D.Codigo_producto Codigo, P.Nombre Nombre, (D.Precio * D.Cantidad) Total
+AS SELECT F.Fecha Fecha ,D.Codigo_producto Codigo, P.Nombre Nombre, SUM(D.Precio * D.Cantidad) Total
 			FROM Facturas F Inner Join Detalle_Facturas D
 			On F.Numero_factura = D.Numero_factura Inner Join Productos P
 			On D.Codigo_producto = P.Codigo_producto
@@ -90,9 +90,8 @@ SELECT * FROM V_ReporteProducto_CampoLLeno v
 END
 GO
 
--- VISTAS REPORTE CLIENTE
+-- VISTA REPORTE CLIENTE
 
---con parametros condicion
 IF EXISTS(
 	SELECT 1
 	FROM sys.views
@@ -108,8 +107,6 @@ AS SELECT F.Fecha Fecha , C.Nombres Nombres,C.Apellidos Apellidos,  SUM(F.Total_
 			On F.Codigo_cliente = C.Codigo_cliente
 			WHERE F.Anulada = 'N'
 			Group by F.Fecha, C.Nombres,C.Apellidos
-			
-			
 GO
 
 -- SP DE reporte por cliente
@@ -120,27 +117,27 @@ GO
 CREATE PROCEDURE [dbo].[sp_ReporteCliente]
 		@Fecha1 date,
 		@Fecha2 date,
-		@Nombre nvarchar(MAX)
+		@Nombre_Completo nvarchar(MAX)
 
 AS
 BEGIN
 
-IF(@Fecha1 = '') and (@Nombre = '')
+IF(@Fecha1 = '') and (@Nombre_Completo = '')
 		SELECT * FROM V_ReporteCliente v	
 		Order By v.Fecha
 			
 ELSE IF(@Fecha1 = '')
 		SELECT * FROM V_ReporteCliente v
-		WHERE v.Nombres = @Nombre
+		WHERE CONCAT(v.Nombres,' ', v.Apellidos) = @Nombre_Completo
 		Order By v.Fecha
 			
-ELSE IF(@Nombre = '')
+ELSE IF(@Nombre_Completo = '')
 		SELECT * FROM V_ReporteCliente v
 			WHERE v.Fecha BETWEEN @Fecha1 AND @Fecha2 
 			Order By v.Fecha
 ELSE
 SELECT * FROM V_ReporteCliente v
-			WHERE v.Fecha BETWEEN @Fecha1 AND @Fecha2 AND v.Nombres = @Nombre
+			WHERE v.Fecha BETWEEN @Fecha1 AND @Fecha2 AND CONCAT(v.Nombres,' ', v.Apellidos) = @Nombre_Completo
 			Order By v.Fecha
 END
 GO
