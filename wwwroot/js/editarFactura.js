@@ -68,6 +68,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 anulada_span.textContent = "Estado: Anulada";
             }
         }
+
+        if (e.target.matches("#clienteSeleccionado")) {
+            const $fila = e.target.closest("tr")
+            const $inputCodigoCliente = document.querySelector("#cod_cliente_input");
+            console.log($fila)
+            //Cambiar el codigo de cliente del cliente
+            console.log($fila.querySelector("#cod_cliente"))
+            $inputCodigoCliente.value = $fila.querySelector("#cod_cliente").textContent
+
+            //cambiar el nombre del cliente en el resumen de factura
+            let nombreNuevoCliente = $fila.querySelector("#nombres").textContent
+            let apellidoNuevoCliente = $fila.querySelector("#apellidos").textContent
+            document.querySelector("#nombre_cliente").textContent = `Emitida por: ${nombreNuevoCliente} ${apellidoNuevoCliente}`
+
+            //cambiar el nit del cliente en el resumen de factura
+            let nitNuevoCliente = $fila.querySelector("#nit").textContent
+            document.querySelector("#nit_cliente").textContent = `NIT: ${nitNuevoCliente}`
+        }
     })
 })
 

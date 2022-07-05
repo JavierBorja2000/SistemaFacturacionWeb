@@ -60,10 +60,10 @@
                     </div>
                     <div class="bg-gray-200 py-4 px-5 border-2 border-b-gray-300">
                         <p class="w-full  text-sm text-gray-600 pb-2 flex justify-between">
-                            <span>Emitida por: @Model.Cliente.Nombres @Model.Cliente.Apellidos</span>
+                            <span id="nombre_cliente" >Emitida por: @Model.Cliente.Nombres @Model.Cliente.Apellidos</span>
                             <a href="#selectNuevoCliente" class="cambiarCliente text-teal-500 hover:text-teal-800 underline decoration-solid font-semibold">cambiar</a>
                         </p>
-                        <p class="w-full  text-sm text-gray-600 pb-2">NIT: @Model.Cliente.Nit </p>
+                        <p id="nit_cliente" class="w-full  text-sm text-gray-600 pb-2">NIT: @Model.Cliente.Nit </p>
                         <p class="w-full  text-sm text-gray-600 flex justify-between">
                             
                             @if(@Model.Anulada == 'A')
@@ -74,7 +74,7 @@
                             {
                                 <span id="estado_span">Estado: Vigente </span>
                             }
-                            <a id="estado" class="text-teal-500 hover:text-teal-800 underline decoration-solid font-semibold">cambiar</a>
+                            <a id="estado" class="text-teal-500 hover:text-teal-800 underline decoration-solid font-semibold cursor-pointer">cambiar</a>
                         </p>
                     </div>
                     <div class="bg-gray-300 flex justify-between py-4 px-5 font-semibold tracking-wide " >
@@ -115,13 +115,14 @@
                         @if(item.Estado == 'A')
                         {
                             <tr class="text-gray-900 border-b-2 border-b-gray-900 hover:bg-gray-200">
-                                <td class="px-3 py-2">@item.Codigo_cliente</td>
-                                <td class="px-3 py-2">@item.Nombres</td>
-                                <td class="px-3 py-2">@item.Apellidos</td>
-                                <td class="px-3 py-2">@item.Nit</td>
+                                <td class="px-3 py-2" id="cod_cliente">@item.Codigo_cliente</td>
+                                <td class="px-3 py-2" id="nombres">@item.Nombres</td>
+                                <td class="px-3 py-2" id="apellidos">@item.Apellidos</td>
+                                <td class="px-3 py-2" id="nit">@item.Nit</td>
                                 <td class="px-3 py-2">@item.Telefono</td>
                                 <td class="px-3 py-2">
-                                    <button onclick="cambiarCliente(@item.Codigo_cliente)" class="clienteSeleccionado inline-block pr-2 pl-2 py-1 rounded border-none focus:outline-none font-semibold text-xs bg-teal-500 text-gray-200 shadow-sm hover:shadow-md hover:bg-gray-900 transition-all duration-500">Cambiar Persona</button>
+                                    @*onclick="cambiarCliente(@item.Codigo_cliente)" *@
+                                    <button id="clienteSeleccionado" class="clienteSeleccionado inline-block pr-2 pl-2 py-1 rounded border-none focus:outline-none font-semibold text-xs bg-teal-500 text-gray-200 shadow-sm hover:shadow-md hover:bg-gray-900 transition-all duration-500">Cambiar Persona</button>
                                </td>
                             </tr>
                         }
