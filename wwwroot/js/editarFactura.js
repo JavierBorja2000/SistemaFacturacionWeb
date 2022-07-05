@@ -53,6 +53,21 @@ document.addEventListener("DOMContentLoaded", () => {
             const $listadoClientes = document.querySelector("#selectNuevoCliente")
             $listadoClientes.classList.toggle("ocultar")
         }
+
+        if(e.target.matches("#estado")){
+            var anulada_input = document.querySelector("#estado_input");
+            var anulada_span = document.querySelector("#estado_span");
+            console.log(anulada_span);
+
+            if(anulada_input.value === "A"){
+                anulada_input.value = "N";
+                anulada_span.textContent = "Estado: Vigente";
+            }
+            else{
+                anulada_input.value = "A";
+                anulada_span.textContent = "Estado: Anulada";
+            }
+        }
     })
 })
 
