@@ -118,10 +118,10 @@
                                 <td class="px-3 py-2">@item.Codigo_cliente</td>
                                 <td class="px-3 py-2">@item.Nombres</td>
                                 <td class="px-3 py-2">@item.Apellidos</td>
-                                <td class="px-3 pyS-2">@item.Nit</td>
+                                <td class="px-3 py-2">@item.Nit</td>
                                 <td class="px-3 py-2">@item.Telefono</td>
                                 <td class="px-3 py-2">
-                                    <button asp-action="" asp-controller="" asp-route-codigo="@item.Codigo_cliente" class="clienteSeleccionado inline-block pr-2 pl-2 py-1 rounded border-none focus:outline-none font-semibold text-xs bg-teal-500 text-gray-200 shadow-sm hover:shadow-md hover:bg-gray-900 transition-all duration-500">Cambiar Persona</button>
+                                    <button onclick="cambiarCliente(@item.Codigo_cliente)" class="clienteSeleccionado inline-block pr-2 pl-2 py-1 rounded border-none focus:outline-none font-semibold text-xs bg-teal-500 text-gray-200 shadow-sm hover:shadow-md hover:bg-gray-900 transition-all duration-500">Cambiar Persona</button>
                                </td>
                             </tr>
                         }

@@ -110,3 +110,8 @@ function actualizarTotalFactura() {
         $totalFactura.textContent = total.toFixed(2)
     }
 }
+
+function cambiarCliente(Codigo_cliente){
+    var cod_cliente_input = document.querySelector("#cod_cliente_input");
+    cod_cliente_input.value = Codigo_cliente;
+}

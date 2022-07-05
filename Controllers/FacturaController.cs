@@ -312,7 +312,7 @@ namespace SistemaFacturacionWeb.Controllers
 
             if(factura.Anulada != modelo.Anulada)
             {
-                if(factura.Anulada == 'A')
+                if(modelo.Anulada == 'A')
                 {
                     _context.Database.ExecuteSqlRaw($"sp_AnularFactura {modelo.Numero_factura}");
                 }
