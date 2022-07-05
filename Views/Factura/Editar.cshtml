@@ -1,0 +1,139 @@
+﻿@model SistemaFacturacionWeb.Models.ViewModels.VerDetallesViewModel
+
+@{
+    ViewData["Title"] = "Editar Factura";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="py-3">
+    <form class="container mx-auto px-4 py-2" method="post"
+                asp-action="Editar">
+                <input asp-for="Codigo_cliente" type="hidden" id="cod_cliente_input">
+                <input asp-for="Numero_factura" type="hidden">
+                <input asp-for="Fecha" type="hidden">
+                <input asp-for="Anulada" type="hidden" id="estado_input">
+        <h1 class="text-center text-3xl uppercase bold tracking-wider">
+            @ViewData["Title"]
+        </h1>
+        <div class="flex flex-col lg:flex-row">
+             <div class="flex mt-10 items-center overflow-x-scroll sm:overflow-auto lg:w-2/3">
+                <table id="tableProductos" class="w-full text-base text-left ">
+                    <thead class="uppercase font-bold text-left tracking-wide border-b-2 border-b-gray-600 text-sm text-gray-600">
+                        <tr>
+                            <td class="px-3 py-2">PRODUCTO</td>
+                            <td class="px-3 py-2">PRECIO</td>
+                            <td class="px-3 py-2">CANTIDAD</td>
+                            <td class="px-3 py-2">TOTAL</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(int i=0; i < Model.Productos.Count(); i++)
+                        {
+                            <input asp-for="Productos[i].Codigo_producto" type="hidden">
+                            <input asp-for="Productos[i].Precio" type="hidden">
+                            <tr class="text-gray-600 border-b-2 border-b-gray-600">
+                                <td class="px-3 py-2 flex-col">
+                                    <p class="text-gray-900 font-semibold">@Model.Productos[i].Nombre</p>
+                                    <p class="text-xs text-gray-600">@Model.Productos[i].Descripcion</p>
+                                </td>
+                                <td id="precio" class="px-3 py-2 text-gray-900 font-semibold">@Model.Productos[i].Precio</td>
+                                <td class="px-3 pt-4 text-gray-900 font-semibold flex">
+                                    <button type="button" class="btn-disminuir bg-gray-200 focus:outline-none px-2 rounded-l-full">-</button>
+                                    <input min="0" class="bg-gray-200 focus:outline-none pl-2 w-12 text-center valid" id="cantidad" asp-for="Productos[i].Cantidad" readonly/>
+                                    <button type="button" class="btn-aumentar relative z-10 bg-gray-200 focus:outline-none px-2 rounded-r-full">+</button>
+                                </td>
+                                <td class="px-3 py-2 text-gray-900 font-semibold">Q <span id="totalPorProducto">0.00</span> </td>
+                                <td id="existencias" class="invisible w-0">@Model.Productos[i].Existencias</td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            
+            </div>
+
+            @*Summary*@
+            <div class="w-full sm:w-2/3 sm:mx-auto lg:w-1/3 mt-12 lg:mt-20 pl-6">
+                <div>
+                    <div class="bg-gray-200">
+                        <p class="w-full py-4 px-5 text-lg text-gray-900 tracking-wide font-semibold border-2 border-b-0 border-b-gray-300">Resumen</p>
+                    </div>
+                    <div class="bg-gray-200 py-4 px-5 border-2 border-b-gray-300">
+                        <p class="w-full  text-sm text-gray-600 pb-2 flex justify-between">
+                            <span id="nombre_cliente" >Emitida por: @Model.Cliente.Nombres @Model.Cliente.Apellidos</span>
+                            <a href="#selectNuevoCliente" class="cambiarCliente text-teal-500 hover:text-teal-800 underline decoration-solid font-semibold">cambiar</a>
+                        </p>
+                        <p id="nit_cliente" class="w-full  text-sm text-gray-600 pb-2">NIT: @Model.Cliente.Nit </p>
+                        <p class="w-full  text-sm text-gray-600 flex justify-between">
+                            
+                            @if(@Model.Anulada == 'A')
+                            {
+                                <span id="estado_span">Estado: Anulada </span>
+                            }
+                            else
+                            {
+                                <span id="estado_span">Estado: Vigente </span>
+                            }
+                            <a id="estado" class="text-teal-500 hover:text-teal-800 underline decoration-solid font-semibold cursor-pointer">cambiar</a>
+                        </p>
+                    </div>
+                    <div class="bg-gray-300 flex justify-between py-4 px-5 font-semibold tracking-wide " >
+                        <p class="w-full text-lg text-gray-900 ">TOTAL</p>
+                        <p class="w-full text-lg text-right text-gray-900 ">Q<span id="totalFactura">0.00</span></p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                      <input type="submit" class="inline-block w-full py-3 text-center rounded border-none focus:outline-none font-semibold uppercase tracking-wider text-sm bg-teal-500 text-gray-200 shadow-sm hover:shadow-md hover:bg-gray-900 transition-all duration-500 cursor-pointer" value="Guardar"/>
+                </div>
+                
+            </div>
+        </div>
+       
+    </form>
+</div>
+
+<div id="selectNuevoCliente" class="my-40 py-3 ocultar">
+    <div class="container mx-auto px-4 py-2">
+        <h1 class="text-center text-3xl uppercase bold tracking-wider">
+            Seleccione al nuevo Cliente
+        </h1>
+        <div class="flex lg:flex-col mt-10 items-center overflow-x-scroll sm:overflow-auto">
+            <table class="w-full xl:w-2/3 text-md text-left ">
+                <thead class="uppercase font-bold text-left tracking-wide border-b-2 border-b-gray-900 text-gray-700">
+                    <tr>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Codigo_cliente)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Cliente.Nombres)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Cliente.Apellidos)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Cliente.Nit)</td>
+                        <td class="px-3 py-2">@Html.DisplayNameFor(m => m.Cliente.Telefono)</td>
+                        <td class="px-3 py-2">Seleccione</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listClientes)
+                    {
+                        @if(item.Estado == 'A')
+                        {
+                            <tr class="text-gray-900 border-b-2 border-b-gray-900 hover:bg-gray-200">
+                                <td class="px-3 py-2" id="cod_cliente">@item.Codigo_cliente</td>
+                                <td class="px-3 py-2" id="nombres">@item.Nombres</td>
+                                <td class="px-3 py-2" id="apellidos">@item.Apellidos</td>
+                                <td class="px-3 py-2" id="nit">@item.Nit</td>
+                                <td class="px-3 py-2">@item.Telefono</td>
+                                <td class="px-3 py-2">
+                                    @*onclick="cambiarCliente(@item.Codigo_cliente)" *@
+                                    <button id="clienteSeleccionado" class="clienteSeleccionado inline-block pr-2 pl-2 py-1 rounded border-none focus:outline-none font-semibold text-xs bg-teal-500 text-gray-200 shadow-sm hover:shadow-md hover:bg-gray-900 transition-all duration-500">Cambiar Persona</button>
+                               </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/editarFactura.js" asp-append-version="true"></script>
+

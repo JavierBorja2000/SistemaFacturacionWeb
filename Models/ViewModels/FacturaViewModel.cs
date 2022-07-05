@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaFacturacionWeb.Models.ViewModels
@@ -15,21 +16,25 @@ namespace SistemaFacturacionWeb.Models.ViewModels
         public DateTime Fecha { get; set; }
 
         [Display(Name = "Total")]
-        public float Total_factura { get; set; }
+        public float? Total_factura { get; set; }
 
         [Display(Name = "Anulada")]
         public char Anulada { get; set; } // A - Anulada N - No Anulada
 
         [Display(Name = "Cliente")]
-        public int Codigo_cliente { get; set; }
+        public int? Codigo_cliente { get; set; }
 
         [ForeignKey("Codigo_cliente")]
         public virtual Cliente? Cliente { get; set; }
 
-        public IEnumerable<ProductoFactura> Productos { get; set; }
+        public List<ProductoFactura> Productos { get; set; }
+
+        public List<Cliente>? listClientes { get; set; }
     }
 
     public class ProductoFactura {
+        public int Numero_factura { get; set; }
+
         [Key]
         public int Codigo_producto { get; set; }
 
@@ -42,9 +47,12 @@ namespace SistemaFacturacionWeb.Models.ViewModels
 
         [Required(ErrorMessage = "Este campo no puede estar vacío")]
         [Display(Name = "Precio")]
-        public float Precio { get; set; }
+        public float? Precio { get; set; }
 
+        //[Remote("CantidadValida", "Factura", AdditionalFields = "Numero_factura, codigo_producto", ErrorMessage = "No existen suficiente en existencia para cubrir lo solicitado" )]
         public int Cantidad { get; set; }
+
+        public int? Existencias { get; set; }
     }
 
 }

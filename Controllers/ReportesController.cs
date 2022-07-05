@@ -164,7 +164,7 @@ namespace SistemaFacturacionWeb.Controllers
 }
 
 
-        public IActionResult Rep_Cliente()
+ public IActionResult Rep_Cliente()
         {
 
             List<ReporteClienteViewModel> ListadoReporte = new List<ReporteClienteViewModel>();
@@ -296,6 +296,140 @@ namespace SistemaFacturacionWeb.Controllers
 
                 }
             }
+
+            return View(modelo);
+        }
+        
+        
+         public IActionResult Rep_factura()
+        {
+
+            List<ReporteFacturaViewModel> ListadoReporte = new List<ReporteFacturaViewModel>();
+            Reporte_factura modelo = new Reporte_factura();
+            // Se crea el query y se abre la conexion
+            string query = "sp_ReporteFacturas";
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+                connection.Open();
+
+                // Se envia el query
+                SqlCommand sql = new SqlCommand(query, connection);
+                sql.Parameters.AddWithValue("Fecha1", "");
+                sql.Parameters.AddWithValue("Fecha2", "");
+                sql.CommandType = CommandType.StoredProcedure;
+
+                try
+                {
+                    // Se leen los datos
+                    SqlDataReader reader = sql.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ReporteFacturaViewModel reportes = new ReporteFacturaViewModel();
+                        reportes.Fecha = reader.GetDateTime(0);
+                        reportes.Cantidad_facturas = reader.GetInt32(1);
+                        reportes.Total_facturado = (float)reader.GetDouble(2);
+                        reportes.Cantidad_productos = reader.GetInt32(3);
+
+
+                        ListadoReporte.Add(reportes);
+                    }
+
+                    reader.Close();
+                    connection.Close();
+
+
+                    modelo.Resultados = ListadoReporte;
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+
+                }
+
+            }
+
+
+            return View(modelo);
+        }
+
+        [HttpPost]
+        public IActionResult Rep_factura(Reporte_factura modelo)
+        {
+            List<ReporteFacturaViewModel> ListadoReporte = new List<ReporteFacturaViewModel>();
+            modelo.Resultados = new List<ReporteFacturaViewModel>();
+            if ((modelo.ReporteViewModel.Fecha1 == null && modelo.ReporteViewModel.Fecha2 != null) || (modelo.ReporteViewModel.Fecha2 == null && modelo.ReporteViewModel.Fecha1 != null))
+            {
+                TempData["Error"] = "El rango de fechas debe contener Inicio y Final";
+                return Redirect("Rep_factura");
+
+            }
+
+            if (!(modelo.ReporteViewModel.Fecha2 > modelo.ReporteViewModel.Fecha1 || modelo.ReporteViewModel.Fecha1 == null || modelo.ReporteViewModel.Fecha2 == null))
+            {
+                TempData["Error"] = "La fecha final debe ser mayor a las inicial";
+                return Redirect("Rep_factura");
+            }
+            TempData["Error"] = "";
+            // Se crea el query y se abre la conexion
+            string query = "sp_ReporteFacturas";
+            using (SqlConnection connection = new SqlConnection(cadena))
+            {
+                connection.Open();
+
+                // Se envia el query
+                SqlCommand sql = new SqlCommand(query, connection);
+
+                if (modelo.ReporteViewModel.Fecha1 == null)
+                {
+                    sql.Parameters.AddWithValue("Fecha1", "");
+                }
+                else
+                {
+                    sql.Parameters.AddWithValue("Fecha1", modelo.ReporteViewModel.Fecha1);
+                }
+                if (modelo.ReporteViewModel.Fecha2 == null)
+                {
+                    sql.Parameters.AddWithValue("Fecha2", "");
+                }
+                else
+                {
+                    sql.Parameters.AddWithValue("Fecha2", modelo.ReporteViewModel.Fecha2);
+                }
+               
+                sql.CommandType = CommandType.StoredProcedure;
+
+                try
+                {
+                    // Se leen los datos
+                    SqlDataReader reader = sql.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ReporteFacturaViewModel reportes = new ReporteFacturaViewModel();
+                        reportes.Fecha = reader.GetDateTime(0);
+                        reportes.Cantidad_facturas = reader.GetInt32(1);
+                        reportes.Total_facturado = (float)reader.GetDouble(2);
+                        reportes.Cantidad_productos = reader.GetInt32(3);
+
+
+                        ListadoReporte.Add(reportes);
+                    }
+
+                    reader.Close();
+                    connection.Close();
+
+
+                    modelo.Resultados = ListadoReporte;
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+
+                }
+
+            }
+
 
             return View(modelo);
         }

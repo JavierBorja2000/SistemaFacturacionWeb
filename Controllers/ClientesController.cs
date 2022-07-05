@@ -81,6 +81,8 @@ namespace SistemaFacturacionWeb.Controllers
                 TempData["ErrorTitle"] = "Error !";
                 TempData["ErrorDescription"] = "No se encontro el Cliente";
                 TempData["ErrorCode"] = "404";
+
+                return RedirectToAction("ErrorPage", "Home");
             }
 
             var facturas = from d in DbContext.Facturas where d.Codigo_cliente == Codigo_cliente select d;
