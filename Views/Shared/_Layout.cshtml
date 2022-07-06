@@ -1,64 +1,86 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SistemaFacturacionWeb</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/tailwind.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SistemaFacturacionWeb.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sistema<span class="title">Facturacion </span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1 justify-content-end">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Clientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Facturas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Reportes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Cerrar Sesion</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - SistemaFacturacionWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+       <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg shadow-md py-2 bg-white relative flex items-center w-full justify-between">
+        <div class="px-6 w-full flex flex-wrap items-center justify-between">
+          <a href="@Url.Action("Index","Home")" class="text-decoration-none self-center text-xl font-semibold whitespace-nowrap text-gray-900 hover:text-gray-900" >Sistema<span class="text-teal-500">Facturacion </span></a>
+          <div class="flex items-center">
+            <button
+              class="navbar-toggler border-0 py-3 lg:hidden leading-none text-xl bg-transparent text-gray-600 hover:text-gray-700 focus:text-gray-700 transition-shadow duration-150 ease-in-out mr-2"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContentY"
+              aria-controls="navbarSupportedContentY"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fas"
+                class="w-5"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  fill="currentColor"
+                  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <div class="navbar-collapse collapse grow items-center" id="navbarSupportedContentY">
+            <ul class="navbar-nav w-100 lg:flex lg:flex-row mt-2 justify-end">
+              <li class="nav-item">
+                <a href="@Url.Action("Index","Producto")" class="nav-link block pr-2 lg:px-2 py-2 text-gray-700 hover:text-teal-500 focus:text-teal-500 transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Productos</a>
+              </li>
+              <li class="nav-item">
+                <a href="@Url.Action("Index","Clientes")" class="nav-link block pr-2 lg:px-2 py-2 text-gray-700 hover:text-teal-500 focus:text-teal-500 transition duration-150 ease-in-out"  data-mdb-ripple="true" data-mdb-ripple-color="light">Clientes</a>
+              </li>
+              <li class="nav-item">
+                <a href="@Url.Action("Index","Factura")" class="nav-link block pr-2 lg:px-2 py-2 text-gray-700 hover:text-teal-500 focus:text-teal-500 transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Facturas</a>
+              </li>
+              <li class="nav-item">
+                <a href="@Url.Action("Index","Reportes")" class="nav-link block pr-2 lg:px-2 py-2 text-gray-700 hover:text-teal-500 focus:text-teal-500 transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Reportes</a>
+              </li>
+             
+              <li class="nav-item mb-2 lg:mb-0">
+                <a href="@Url.Action("Index","Usuario")" class="nav-link block pr-2 lg:px-2 py-2 text-gray-700 hover:text-teal-500 focus:text-teal-500 transition duration-150 ease-in-out"  data-mdb-ripple="true" data-mdb-ripple-color="light">Usuarios</a>
+              </li>
+              <li class="nav-item mb-2 lg:mb-0">
+                <a href="@Url.Action("CerrarSesion","Access")" class="nav-link block pr-2 lg:px-2 py-2 text-gray-700 hover:text-teal-500 focus:text-teal-500 transition duration-150 ease-in-out"  data-mdb-ripple="true" data-mdb-ripple-color="light">Cerrar Sesion</a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </footer>
+      </nav>
+
+    </header>
+    
+    <main >
+        @RenderBody()
+    </main>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

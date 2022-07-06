@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SistemaFacturacionWeb</title>
+    <link rel="stylesheet" href="~/css/tailwind.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SistemaFacturacionWeb.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg shadow-md py-2 bg-white relative flex items-center w-full justify-between">
+            <div class="mt-2 mb-2 px-6 w-full flex flex-wrap items-center justify-between">
+                <p
+                    class="text-decoration-none self-center text-xl font-semibold whitespace-nowrap text-gray-700 hover:text-gray-700">Sistema<span
+                        class="text-teal-500">Facturacion </span></p>
+            </div>
+        </nav>
+
+    </header>
+    <main role="main" class="py-3">
+        <div class="animacion-entrada container mx-auto my-12 px-4 py-2">
+            <h1 class="text-center text-3xl uppercase bold tracking-wider">
+                @ViewData["Title"]
+            </h1>
+            @RenderBody()
+        </div>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
