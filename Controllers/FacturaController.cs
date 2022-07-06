@@ -294,7 +294,8 @@ namespace SistemaFacturacionWeb.Controllers
                     Descripcion = producto.Descripcion,
                     Precio = precio,
                     Cantidad = cantidadInicial,
-                    Existencias = (int?)producto.Existencia
+                    Existencias = (int?)producto.Existencia,
+                    Estado = producto.Estado
                 });
             }
 
