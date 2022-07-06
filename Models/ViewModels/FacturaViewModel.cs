@@ -53,6 +53,8 @@ namespace SistemaFacturacionWeb.Models.ViewModels
         public int Cantidad { get; set; }
 
         public int? Existencias { get; set; }
+
+        public char? Estado { get; set; } // A - Activo I - Inactivo
     }
 
 }

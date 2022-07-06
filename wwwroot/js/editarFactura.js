@@ -7,11 +7,11 @@ const $totalFactura = document.querySelector("#totalFactura")
 
 document.addEventListener("DOMContentLoaded", () => {
     calcularTotalInicial()
+    verificarProductosInactivos()
 
     document.addEventListener("click", e => {
         if (e.target.matches(".btn-disminuir")) {
             const $cantidad = e.target.nextElementSibling
-            console.log($cantidad)
 
             if ($cantidad.value === "0") return
 
@@ -129,7 +129,19 @@ function actualizarTotalFactura() {
     }
 }
 
-function cambiarCliente(Codigo_cliente){
-    var cod_cliente_input = document.querySelector("#cod_cliente_input");
-    cod_cliente_input.value = Codigo_cliente;
+function verificarProductosInactivos() {
+    const $listaProductos = document.querySelectorAll("#tableProductos tbody tr")
+
+    $listaProductos.forEach(el => {
+        let estado = el.querySelector("#estado").textContent
+
+        if (estado === 'I') {
+            const $btnDisminuir = el.querySelector(".btn-disminuir")
+            const $btnAumentar = el.querySelector(".btn-aumentar")
+
+            $btnDisminuir.disabled = true
+            $btnAumentar.disabled = true
+        }
+    })
+    
 }

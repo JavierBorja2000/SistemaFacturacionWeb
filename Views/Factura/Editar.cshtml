@@ -44,6 +44,7 @@
                                 </td>
                                 <td class="px-3 py-2 text-gray-900 font-semibold">Q <span id="totalPorProducto">0.00</span> </td>
                                 <td id="existencias" class="invisible w-0">@Model.Productos[i].Existencias</td>
+                                <td id="estado" class="invisible w-0">@Model.Productos[i].Estado</td>
                             </tr>
 
                         }
@@ -121,7 +122,6 @@
                                 <td class="px-3 py-2" id="nit">@item.Nit</td>
                                 <td class="px-3 py-2">@item.Telefono</td>
                                 <td class="px-3 py-2">
-                                    @*onclick="cambiarCliente(@item.Codigo_cliente)" *@
                                     <button id="clienteSeleccionado" class="clienteSeleccionado inline-block pr-2 pl-2 py-1 rounded border-none focus:outline-none font-semibold text-xs bg-teal-500 text-gray-200 shadow-sm hover:shadow-md hover:bg-gray-900 transition-all duration-500">Cambiar Persona</button>
                                </td>
                             </tr>
