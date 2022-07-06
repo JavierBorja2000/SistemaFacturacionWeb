@@ -33,41 +33,38 @@
         </div>
          <div class="flex justify-center">
             <input type="submit" value="Buscar"
-                class="bg-teal-600 px-5 py-2 uppercase text-white mb-5 rounded-md hover:bg-teal-700 cursor-pointer">
+                class="text-gray-200 bg-teal-600 hover:bg-gray-900 font-semibold uppercase tracking-wider transition-all duration-500 px-5 py-2 mb-5 rounded-md cursor-pointer">
         </div>
 
         @if(Model.Resultados.Count()>0){
-        <table class="w-full text-md text-left">
-            <thead class="uppercase font-bold text-center tracking-wide bg-teal-500 text-white">
-                <tr>
-                    <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Fecha)</td>
-                    <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Codigo_producto)</td>
-                    <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Nombre_producto)</td>
-                    <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Total)</td>
-               
-                </tr>
-            </thead>
-             <tbody> 
-                @foreach (var item in Model.Resultados )
-                {
+        <div class="overflow-x-scroll sm:overflow-auto">
+            <table class="w-full text-md text-left">
+                <thead class="uppercase font-bold text-center tracking-wide bg-teal-500 text-white">
                     <tr>
-                        <td class="border border-teal-800 px-3 py-1">@item.Fecha.ToShortDateString()</td>
-                        <td class="border border-teal-800 px-3 py-1">@item.Codigo_producto</td>
-                        <td class="border border-teal-800 px-3 py-1">@item.Nombre_producto</td>
-                        <td class="border border-teal-800 px-3 py-1">@item.Total</td>
+                        <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Fecha)</td>
+                        <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Codigo_producto)</td>
+                        <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Nombre_producto)</td>
+                        <td class="border border-teal-800 px-3 py-1">@Html.DisplayNameFor(m => m.Resultados.First().Total)</td>
+               
+                    </tr>
+                </thead>
+                 <tbody> 
+                    @foreach (var item in Model.Resultados )
+                    {
+                        <tr>
+                            <td class="border border-teal-800 px-3 py-1">@item.Fecha.ToShortDateString()</td>
+                            <td class="border border-teal-800 px-3 py-1">@item.Codigo_producto</td>
+                            <td class="border border-teal-800 px-3 py-1">@item.Nombre_producto</td>
+                            <td class="border border-teal-800 px-3 py-1">@item.Total</td>
                       
                         
-                    </tr>
-                } 
-            </tbody>
-        </table>
-   }
-
+                        </tr>
+                    } 
+                </tbody>
+            </table>
+        </div>
         
-         
-
-       
-        
+        }
     </form>
 </div>
 </div>
